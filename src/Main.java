@@ -46,14 +46,21 @@ public class Main{
         Deck deck = new Deck();
         String name = makeUser();
         Player player = new Player(name);
+        Checker check = new Checker();
+        int sum;
+        dealer.setLevel(1);
 
 
-        stateUser(player);
+        player.stateUser();
         System.out.print("Betting: ");
         player.setBet(scan.nextInt());
         System.out.println("Setting Cards...");
         player.setCards(deck.getCards());
         System.out.format("%s player cards -> %s %s\n",player.getName(), player.getHand().get(0),player.getHand().get(1));
+        if(check.checkBlackJack(player)){
+            // won
+        }
+
         dealer.setCard(deck.getCard());
         System.out.format("%s dealer cards -> %s ?\n",dealer.getName(),player.getHand().get(0));
         System.out.print("1) HIT..?     2) STOP..?");
@@ -61,27 +68,23 @@ public class Main{
             System.out.println("Choose HIT...");
             System.out.println("Give one more card");
             player.hitCard(deck.getCard());
+            sum=check.checkCardValueSum(player);
             System.out.format("%s player cards -> ", player.getName());
             for (int i = 0; i < player.getHand().size(); i++) {
                 System.out.format("%s ", player.getHand().get(i));
+                if(check.checkBurst(sum)){
+                    // burst
+                }
             }
+            System.out.print("1) HIT..?     2) STOP..?");
         }
+        dealer.setCard(deck.getCard());     // 2nd card supplied
+        System.out.format("%s dealer cards -> %s %s\n",dealer.getName(),dealer.getHand().get(0),dealer.getHand().get(1));
+        if(dealer.getLevel()==1){
 
-    }
-    public static boolean checkBurst(Player cards){
-        int sum = 0;
-        ArrayList hands = cards.getHand();
-        for(int i=0;i<hands.size();i++){
-            if(hands.get(i).equals("A")){
-                sum+=1;
-            }else if(hands.get(i))
         }
     }
 
-    public static void stateUser(Player p){
-        System.out.format("User Name:  %s\n",p.getName());
-        System.out.format("User Money: %d\n",p.getHoldMoney());
-    }
     public static String makeUser(){
         System.out.println("            -------------           ");
         System.out.println("              USER NAME             ");
@@ -91,91 +94,6 @@ public class Main{
         return scan.next();
     }
     public static void infoShow(){
-
+        // information of how to play game
     }
-}
-
-// dealer
-class Dealer{
-    private ArrayList hand = new ArrayList<String>();
-    private String name;
-
-    public Dealer(){
-        super();
-        this.name = "John";
-    }
-    public Dealer(String n){
-        super();
-        this.name = n;
-    }
-    public String getName(){
-        return this.name;
-    }
-    public ArrayList getHand(){
-        return this.hand;
-    }
-    public void setCard(String card){
-        this.hand.add(card);
-    }
-    public void hitCard(String card){
-        this.hand.add(card);
-    }
-}
-// player
-class Player{
-    private ArrayList hand = new ArrayList<String>();
-    private String name;
-    private int holdMoney = 100;
-    private int bet = 0;
-
-    public Player(){
-        super();
-        this.name = "Eric";
-    }
-    public Player(String n){
-        super();
-        this.name = n;
-    }
-    public String getName(){
-        return this.name;
-    }
-    public int getHoldMoney(){
-        return this.holdMoney;
-    }
-    public ArrayList getHand(){
-        return this.hand;
-    }
-    public void setBet(int n){
-        this.holdMoney -= n;
-        this.bet = n;
-    }
-    public void setCards(ArrayList<String> cards){
-        for(String c: cards){
-            this.hand.add(c);
-        }
-    }
-    public void hitCard(String card){
-        this.hand.add(card);
-    }
-}
-// card role
-class Deck{
-    private String[] deck = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
-
-    public Deck(){
-
-    }
-    public ArrayList getCards(){
-        Random ran = new Random();
-        return new ArrayList<String>(Arrays.asList(deck[ran.nextInt(13)],deck[ran.nextInt(13)]));
-    }
-    public String getCard(){
-        Random ran = new Random();
-        return this.deck[ran.nextInt(13)];
-    }
-
-}
-// betting role
-class Bet{
-
 }
