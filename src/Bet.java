@@ -19,8 +19,12 @@ public class Bet {
         player.setWinMoney(this.playerBet);
         setReset(player);
     }
-    public void setWinGame(Player player){
-        player.setWinMoney(this.playerBet*2);
+    public void setWinGame(Player player,boolean bj){
+        if(bj){
+            player.setWinMoney((this.playerBet*2)+(int)(this.playerBet*0.5));
+        }else{
+            player.setWinMoney(this.playerBet*2);
+        }
         setReset(player);
     }
 }
