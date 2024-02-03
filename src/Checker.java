@@ -40,7 +40,7 @@ public class Checker {
                     sumInverse+=10;
                     break;
                 case "A":
-                    if((sum+11)>21){
+                    if((sumInverse+11)>21){
                         sumInverse+=1;
                     }else{
                         sumInverse+=11;
@@ -53,7 +53,7 @@ public class Checker {
         if(sum==sumInverse){
             return sum;
         }else{
-            return sumInverse;
+            return Math.min(sum, sumInverse);
         }
     }
     public boolean checkBlackJack(int sum){

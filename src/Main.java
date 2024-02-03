@@ -73,7 +73,7 @@ public class Main{
             bet.setPlayerBet(player.getBet());
             clearScreen();
 
-            System.out.println("Setting Cards...");
+            System.out.println("\tSetting Cards...");
             loadingScreen();
             dealer.setCard(deck.getCard());
             player.setCards(deck.getCards());
@@ -117,7 +117,7 @@ public class Main{
                 Dealer_BLACKJACK=true;
                 System.out.format("Dealer got a BLACKJACK\n");
             }else{
-                while(!Player_BURST&&sumDealer<sumPlayer){
+                while(!Player_BLACKJACK&&!Player_BURST&&sumDealer<sumPlayer){
                     System.out.println("Dealer Choose HIT...");
                     System.out.println("Get one more card");
                     pauseClearScreen();
@@ -137,16 +137,17 @@ public class Main{
             if((Dealer_BLACKJACK&&!Player_BLACKJACK)||!Dealer_BURST&&(Player_BURST||sumDealer>sumPlayer)){
                 System.out.format("Player %s - LOSE\n",player.getName());
                 bet.setLostGame(player);
-            }else if((Dealer_BLACKJACK&&Player_BLACKJACK)||(Dealer_BURST&&Player_BURST)||(sumPlayer==sumDealer)){
+            }else if((Dealer_BLACKJACK&&Player_BLACKJACK)||(sumPlayer==sumDealer)){
                 System.out.format("Player %s & Dealer %s - DRAW\n",player.getName(),dealer.getName());
                 bet.setDrawGame(player);
             }else{
                 if(Player_BLACKJACK){
                     System.out.format("Player %s - Win with BLACKJACK...!\n",player.getName());
                     bet.setWinGame(player,Player_BLACKJACK);
+                }else{
+                    System.out.format("Player %s - Win\n",player.getName());
+                    bet.setWinGame(player,Player_BLACKJACK);
                 }
-                System.out.format("Player %s - Win\n",player.getName());
-                bet.setWinGame(player,Player_BLACKJACK);
             }
             pauseClearScreen();
             player.stateUser();
@@ -189,11 +190,13 @@ public class Main{
         return scan.next();
     }
     public static void infoShow(){
-        System.out.println("HOW TO PLAY\n");
+        System.out.println("\tHOW TO PLAY\n");
         System.out.println("Blackjack is an incredibly popular, exciting and easy card game to play.");
         System.out.println("The object is to have a hand with a total value higher than the dealer’s without going over 21.");
         System.out.println("Kings, Queens, Jacks and Tens are worth a value of 10. An Ace has the value of 1 or 11.");
-        System.out.println("The remaining cards are counted at face value\n");
+        System.out.println("The remaining cards are counted at face value\n\n");
+        System.out.println("\tMade by Taeyoung You");
+        System.out.println("\thttps://github.com/TaeyoungYou");
     }
     public static void loadingScreen() throws InterruptedException {
         System.out.print("\tSetting\n");
