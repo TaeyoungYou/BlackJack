@@ -30,4 +30,7 @@ public class Dealer{
     public int getLevel(){
         return this.level;
     }
+    public void resetDeck(){
+        this.hand.clear();
+    }
 }

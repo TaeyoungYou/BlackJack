@@ -6,25 +6,31 @@ public class Checker {
 
     }
     public boolean checkBurst(int sum){
-        return sum <= 21;
+        return sum > 21;
     }
-    public int checkCardValueSum(Player cards){
+    public int checkCardValueSum(ArrayList<String> hands){
         int sum = 0;
-        ArrayList<String> hands = cards.getHand();
         for(String c: hands){
             switch(c){
                 case "J":
                 case "Q":
                 case "K":
+                    sum+=10;
+                    break;
                 case "A":
-                    sum+=1;
+                    if((sum+11)>21){
+                        sum+=1;
+                    }else{
+                        sum+=11;
+                    }
+                    break;
                 default:
                     sum+=Integer.parseInt(c);
             }
         }
         return sum;
     }
-    public boolean checkBlackJack(Player player){
-        return checkCardValueSum(player)==21;
+    public boolean checkBlackJack(int sum){
+        return sum==21;
     }
 }

@@ -19,6 +19,7 @@ public class Player{
     public String getName(){
         return this.name;
     }
+    public void setHoldMoney(int m){this.holdMoney=m;}
     public int getHoldMoney(){
         return this.holdMoney;
     }
@@ -29,6 +30,12 @@ public class Player{
         this.holdMoney -= n;
         this.bet = n;
     }
+    public int getBet(){
+        return this.bet;
+    }
+    public void setWinMoney(int m){
+        this.holdMoney+=m;
+    }
     public void setCards(ArrayList<String> cards){
         this.hand.addAll(cards);
     }
@@ -38,5 +45,8 @@ public class Player{
     public void stateUser(){
         System.out.format("User Name:  %s\n",getName());
         System.out.format("User Money: %d\n",getHoldMoney());
+    }
+    public void resetDeck(){
+        this.hand.clear();
     }
 }
