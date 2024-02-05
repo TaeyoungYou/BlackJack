@@ -52,13 +52,13 @@ public class Main{
         Bet bet = new Bet();
         Checker check = new Checker();
 
-        int sumPlayer=0, sumDealer=0;
+        int sumPlayer=0, sumDealer=0, getMoney;
 
         boolean Player_BLACKJACK = false;
         boolean Dealer_BLACKJACK = false;
         boolean Player_BURST = false;
         boolean Dealer_BURST = false;
-        boolean play = false;
+        boolean play = true;
 
         dealer.setLevel(1);
 
@@ -67,9 +67,20 @@ public class Main{
 
         do{
             clearScreen();
+            if(check.checkMoney(player.getHoldMoney())){
+                System.out.println("You don't have money anymore");
+                pause();
+                continue;
+            }
             player.stateUser();
             System.out.print("Betting: ");
-            player.setBet(scan.nextInt());
+            getMoney = scan.nextInt();
+            if(check.checkMoney(player.getHoldMoney()-getMoney)||getMoney<0){
+                System.out.println("You cannot bet amount of this money");
+                pause();
+                continue;
+            }
+            player.setBet(getMoney);
             bet.setPlayerBet(player.getBet());
             clearScreen();
 

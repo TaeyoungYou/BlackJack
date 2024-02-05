@@ -59,4 +59,7 @@ public class Checker {
     public boolean checkBlackJack(int sum){
         return sum==21;
     }
+    public boolean checkMoney(int m){
+        return m<0;
+    }
 }
